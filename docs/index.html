@@ -65,18 +65,28 @@
         }
       </style>
       <script>
-        document.getElementById("chatbotIcon").addEventListener("click", () => {
-          Swal.fire({
-            title: "",
-            html: `<iframe id="chatbotFrame" src="https://salamanderxing.github.io/gcp-chatbot-frontend/" frameborder="0" style="width: 100%; height: 400px;"></iframe>`,
-            maxWidth: "500px",
-            showCloseButton: true,
-            showConfirmButton: false,
-            customClass: {
-              container: "custom-swal-container",
-            },
+        document
+          .getElementById("chatbotIcon")
+          .addEventListener("click", () => {
+            Swal.fire({
+              title: "",
+              html: `
+                  <iframe 
+                    id="chatbotFrame" 
+                    onLoad='onFrameLoaded()' 
+                    src="https://salamanderxing.github.io/gcp-chatbot-frontend/" 
+                    frameborder="0" 
+                    style="width: 100%; height: 400px;">
+                  </iframe>
+              `,
+              maxWidth: "500px",
+              showCloseButton: true,
+              showConfirmButton: false,
+              customClass: {
+                container: "custom-swal-container",
+              },
+            });
           });
-        });
       </script>
     </div>
   </body>

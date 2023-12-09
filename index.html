@@ -17,13 +17,6 @@
         width="100px"
       />
       <style>
-        /* #chatbotIconContainer { */
-        /*   position: fixed; */
-        /*   bottom: 100px; */
-        /*   right: 150px; */
-        /*   cursor: pointer; */
-        /*   max-width: 50px; */
-        /* } */
         #chatbotIconContainer {
           position: fixed;
           bottom: 50px; /* Adjusted for better visibility */
@@ -34,38 +27,14 @@
         #chatbotIcon {
           max-width: 200px; /* Initial max width */
         }
-
-        /* Media query for smaller screens */
-        @media screen and (max-width: 768px) {
-          #chatbotIcon {
-            max-width: 300px; /* Larger icon on smaller screens */
-          }
-          .custom-swal-container {
-            width: 100% !important;
-            height: 100% !important;
-          }
-
-          #chatbotFrame {
-            height: 100vh; /* Adjust height for mobile */
-            width: 100vw; /* Adjust height for mobile */
-          }
-          .swal2-popup {
-            width: 100% !important;
-            height: 100% !important;
-          }
-        }
-        .swal2-popup {
-          width: 100vw !important;
-          height: 100vh !important;
-        }
-        .custom-swal-container {
-          width: 100vw;
-          height: 100vh;
-          padding: 0;
-          margin: 0;
-        }
       </style>
       <script>
+        function isMobile() {
+          return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent,
+          );
+        }
+
         document.getElementById("chatbotIcon").addEventListener("click", () => {
           Swal.fire({
             title: "",
@@ -75,16 +44,89 @@
                     onLoad='onFrameLoaded()' 
                     src="https://aikosmos-rkaflb3bpq-ew.a.run.app/" 
                     frameborder="0" 
-                    width="100vw"
-                    height="100vh"
+                    style="border:0; width: 100%; height: 100%;"
                   </iframe>
               `,
-            // maxWidth: "500px",
             showCloseButton: true,
             showConfirmButton: false,
-            customClass: {
-              popup: "swal2-popup",
-              container: "custom-swal-container",
+            didOpen: () => {
+              const limit = 710;
+              if (window.innerWidth > limit) {
+                const swalContainer =
+                  document.querySelector(".swal2-container");
+                swalContainer.style.display = "flex";
+                swalContainer.style.flexDirection = "column";
+                swalContainer.style.alignItems = "stretch";
+                swalContainer.style.height = "100vh";
+                swalContainer.style.width = limit + "px";
+                swalContainer.style.padding = "0";
+                swalContainer.style.marginLeft = "auto";
+                swalContainer.style.marginRight = "auto";
+                swalContainer.style.overflow = "hidden";
+
+                // Style the popup
+                const swalPopup = document.querySelector(".swal2-popup");
+                // swalPopup.style.backgroundColor = "blue";
+                swalPopup.style.height = "100%";
+                swalPopup.style.width = "100%";
+                swalPopup.style.margin = "auto";
+                swalPopup.style.overflow = "hidden";
+
+                // Style the html container
+                const swalHtmlContainer = document.querySelector(
+                  ".swal2-html-container",
+                );
+                swalHtmlContainer.style.height = "100vh";
+                swalHtmlContainer.style.overflow = "auto";
+                swalHtmlContainer.style.padding = "0";
+                swalHtmlContainer.style.overflow = "hidden";
+                swalHtmlContainer.style.marginBottom = "-40px";
+                swalHtmlContainer.style.marginLeft = "0";
+                swalHtmlContainer.style.marginRight = "0";
+                swalHtmlContainer.style.marginTop = "0";
+                swalHtmlContainer.style.borderRadius = "30px";
+
+                // Style the iframe
+                const iframe = document.getElementById("chatbotFrame");
+                iframe.style.height = "100%";
+                iframe.style.overflow = "hidden";
+                iframe.style.borderRadius = "30px";
+              } else {
+                const swalContainer =
+                  document.querySelector(".swal2-container");
+                swalContainer.style.display = "flex";
+                swalContainer.style.flexDirection = "column";
+                swalContainer.style.alignItems = "stretch";
+                swalContainer.style.height = "100vh";
+                swalContainer.style.width = "100vw";
+                swalContainer.style.padding = "0";
+                swalContainer.style.margin = "0";
+                swalContainer.style.overflow = "hidden";
+
+                // Style the popup
+                const swalPopup = document.querySelector(".swal2-popup");
+                swalPopup.style.height = "100%";
+                swalPopup.style.width = "100%";
+                swalPopup.style.margin = "auto";
+                swalPopup.style.overflow = "hidden";
+
+                // Style the html container
+                const swalHtmlContainer = document.querySelector(
+                  ".swal2-html-container",
+                );
+                swalHtmlContainer.style.height = "100vh";
+                swalHtmlContainer.style.overflow = "auto";
+                swalHtmlContainer.style.padding = "0";
+                swalHtmlContainer.style.overflow = "hidden";
+                swalHtmlContainer.style.marginBottom = "-40px";
+                swalHtmlContainer.style.borderRadius = "30px";
+
+                // Style the iframe
+                const iframe = document.getElementById("chatbotFrame");
+                iframe.style.height = "100%";
+                iframe.style.overflow = "hidden";
+                iframe.style.borderRadius = "30px";
+              }
             },
           });
         });

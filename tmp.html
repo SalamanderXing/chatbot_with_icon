@@ -1,0 +1,103 @@
+<div id="chatbotIconContainer">
+  <img
+    id="chatbotIcon"
+    src="https://www.svgrepo.com/show/135835/waiter.svg"
+    alt="Chatbot"
+    width="80px"
+    height="80px"
+  />
+
+  <iframe
+    id="chatbotFrame"
+    src="https://aikosmos-rkaflb3bpq-ew.a.run.app/"
+    frameborder="0"
+    style="
+      border: none;
+      width: 380px;
+      height: 70%;
+      position: fixed;
+      bottom: 46px;
+      right: 40px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    "
+  ></iframe>
+
+  <button
+    id="closeIframe"
+    style="
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: #fff;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1001;
+      display: none;
+    "
+  >
+    &times;
+  </button>
+
+  <style>
+    #chatbotIconContainer {
+      /* this is the container where the icon is located */
+      position: fixed;
+      bottom: 50px; /* Bottom margin */
+      right: 40px; /* Right margin */
+      cursor: pointer;
+
+      z-index: 9;
+    }
+    #chatbotIcon:hover {
+      transform: scale(1.1); /* Scale up the element to 110% when hovered */
+    }
+
+    #chatbotIcon {
+      transition: transform 0.3s ease;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Full-screen style for narrow screens */
+    @media (max-width: 710px) {
+      #chatbotFrame {
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+  </style>
+
+  <script>
+    // Initially show the iframe and then hide it after a few milliseconds
+
+    const iframe = document.getElementById("chatbotFrame");
+    setTimeout(function () {
+      if (window.innerWidth > 710) {
+        iframe.style.right = "-100%";
+      }
+    }, 20); // Adjust time as needed
+
+    document
+      .getElementById("chatbotIcon")
+      .addEventListener("click", function () {
+        var closeButton = document.getElementById("closeIframe");
+        var isFullScreen = window.innerWidth <= 710;
+        var isIframeVisible = iframe.style.right === "40px" || isFullScreen;
+        iframe.style.display = "block";
+        iframe.style.right = isIframeVisible ? "-100%" : "40px";
+        closeButton.style.display = isIframeVisible ? "none" : "block";
+      });
+
+    document
+      .getElementById("closeIframe")
+      .addEventListener("click", function () {
+        iframe.style.display = "none";
+        this.style.display = "none";
+      });
+  </script>
+</div>

@@ -4,136 +4,212 @@
     <title>Simple HTML Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
-  <body>
+  <body style="background-color: black">
     <h1>Welcome to My Web Page</h1>
     <p>This is a simple HTML page created as a demonstration.</p>
     <a href="https://www.example.com">Visit Example</a>
     <div id="chatbotIconContainer">
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <img
         id="chatbotIcon"
         src="https://www.svgrepo.com/show/135835/waiter.svg"
         alt="Chatbot"
-        width="50px"
+        width="80px"
+        height="80px"
       />
+
+      <iframe
+        id="chatbotFrame"
+        src="https://aikosmos-rkaflb3bpq-ew.a.run.app/"
+        frameborder="0"
+        style="
+          border: none;
+          width: 380px;
+          height: 70%;
+          position: fixed;
+          bottom: 46px;
+          right: 40px;
+          border-radius: 10px;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        "
+      ></iframe>
+
+      <button
+        id="closeIframe"
+        style="
+          position: fixed;
+          top: 10px;
+          right: 10px;
+          background-color: #fff;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+          z-index: 1001;
+          display: none;
+        "
+      >
+        &times;
+      </button>
+
       <style>
         #chatbotIconContainer {
+          /* this is the container where the icon is located */
           position: fixed;
-          bottom: 50px; /* Adjusted for better visibility */
-          right: 40px; /* Adjusted for better visibility */
+          bottom: 50px; /* Bottom margin */
+          right: 40px; /* Right margin */
           cursor: pointer;
+
+          z-index: 9;
+        }
+        #chatbotIcon:hover {
+          transform: scale(1.1); /* Scale up the element to 110% when hovered */
         }
 
         #chatbotIcon {
-          max-width: 200px; /* Initial max width */
+          transition: transform 0.3s ease;
+          transition: opacity 0.3s ease;
+        }
+
+        /* Full-screen style for narrow screens */
+        @media (max-width: 710px) {
+          #chatbotFrame {
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+          }
         }
       </style>
+
       <script>
-        function isMobile() {
-          return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-            navigator.userAgent,
-          );
-        }
+        // Initially show the iframe and then hide it after a few milliseconds
 
-        document.getElementById("chatbotIcon").addEventListener("click", () => {
-          Swal.fire({
-            title: "",
-            html: `
-                  <iframe 
-                    id="chatbotFrame" 
-                    onLoad='onFrameLoaded()' 
-                    src="https://aikosmos-rkaflb3bpq-ew.a.run.app/"
-                    frameborder="0" 
-                    style="border:none; width: 100%; height: 100%;"
-                  </iframe>
-              `,
-            showCloseButton: true,
-            showConfirmButton: false,
-            didOpen: () => {
-              const limit = 710;
-              if (window.innerWidth > limit) {
-                const swalContainer =
-                  document.querySelector(".swal2-container");
-                swalContainer.style.display = "flex";
-                swalContainer.style.flexDirection = "column";
-                swalContainer.style.alignItems = "stretch";
-                swalContainer.style.height = "100vh";
-                swalContainer.style.width = limit + "px";
-                swalContainer.style.padding = "0";
-                swalContainer.style.marginLeft = "auto";
-                swalContainer.style.marginRight = "auto";
-                swalContainer.style.overflow = "hidden";
+        const iframe = document.getElementById("chatbotFrame");
+        setTimeout(function () {
+          if (window.innerWidth > 710) {
+            iframe.style.right = "-100%";
+          }
+        }, 20); // Adjust time as needed
 
-                // Style the popup
-                const swalPopup = document.querySelector(".swal2-popup");
-                // swalPopup.style.backgroundColor = "blue";
-                swalPopup.style.height = "100%";
-                swalPopup.style.width = "100%";
-                swalPopup.style.margin = "auto";
-                swalPopup.style.overflow = "hidden";
-
-                // Style the html container
-                const swalHtmlContainer = document.querySelector(
-                  ".swal2-html-container",
-                );
-                swalHtmlContainer.style.height = "100vh";
-                swalHtmlContainer.style.overflow = "auto";
-                swalHtmlContainer.style.padding = "0";
-                swalHtmlContainer.style.overflow = "hidden";
-                swalHtmlContainer.style.marginBottom = "0";
-                swalHtmlContainer.style.marginLeft = "0";
-                swalHtmlContainer.style.marginRight = "0";
-                swalHtmlContainer.style.marginTop = "0";
-                swalHtmlContainer.style.borderRadius = "30px";
-
-                // Style the iframe
-                const iframe = document.getElementById("chatbotFrame");
-                iframe.style.height = "100%";
-                iframe.style.overflow = "hidden";
-                iframe.style.borderRadius = "30px";
-              } else {
-                const swalContainer =
-                  document.querySelector(".swal2-container");
-                swalContainer.style.display = "flex";
-                swalContainer.style.flexDirection = "column";
-                swalContainer.style.alignItems = "stretch";
-                swalContainer.style.height = "100vh";
-                swalContainer.style.width = "100vw";
-                swalContainer.style.padding = "0";
-                swalContainer.style.margin = "0";
-                swalContainer.style.overflow = "hidden";
-
-                // Style the popup
-                const swalPopup = document.querySelector(".swal2-popup");
-                swalPopup.style.height = "100%";
-                swalPopup.style.width = "100%";
-                swalPopup.style.margin = "auto";
-                swalPopup.style.marginBottom = "0";
-                swalPopup.style.overflow = "hidden";
-
-                // Style the html container
-                const swalHtmlContainer = document.querySelector(
-                  ".swal2-html-container",
-                );
-                swalHtmlContainer.style.height = "100vh";
-                swalHtmlContainer.style.overflow = "auto";
-                swalHtmlContainer.style.padding = "0";
-                swalHtmlContainer.style.overflow = "hidden";
-                swalHtmlContainer.style.marginTop = "0";
-                swalHtmlContainer.style.marginRight = "0";
-                swalHtmlContainer.style.marginLeft = "0";
-                swalHtmlContainer.style.borderRadius = "30px";
-
-                // Style the iframe
-                const iframe = document.getElementById("chatbotFrame");
-                iframe.style.height = "100%";
-                iframe.style.overflow = "hidden";
-                iframe.style.borderRadius = "30px";
-              }
-            },
+        document
+          .getElementById("chatbotIcon")
+          .addEventListener("click", function () {
+            var closeButton = document.getElementById("closeIframe");
+            var isFullScreen = window.innerWidth <= 710;
+            var isIframeVisible = iframe.style.right === "40px" || isFullScreen;
+            iframe.style.display = "block";
+            iframe.style.right = isIframeVisible ? "-100%" : "40px";
+            closeButton.style.display = isIframeVisible ? "none" : "block";
           });
-        });
+
+        document
+          .getElementById("closeIframe")
+          .addEventListener("click", function () {
+            iframe.style.display = "none";
+            this.style.display = "none";
+          });
       </script>
     </div>
+    <!-- <div id="chatbotIconContainer"> -->
+    <!--   <img -->
+    <!--     id="chatbotIcon" -->
+    <!--     src="https://www.svgrepo.com/show/135835/waiter.svg" -->
+    <!--     alt="Chatbot" -->
+    <!--     width="50px" -->
+    <!--   /> -->
+    <!---->
+    <!--   <iframe -->
+    <!--     id="chatbotFrame" -->
+    <!--     src="https://aikosmos-rkaflb3bpq-ew.a.run.app/" -->
+    <!--     frameborder="0" -->
+    <!--     style=" -->
+    <!--       border: none; -->
+    <!--       width: 380px; -->
+    <!--       height: 80%; -->
+    <!--       position: fixed; -->
+    <!--       bottom: 100px; -->
+    <!--       right: 40px; -->
+    <!--       border-radius: 30px; -->
+    <!--       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); -->
+    <!--     " -->
+    <!--   ></iframe> -->
+    <!---->
+    <!--   <button -->
+    <!--     id="closeIframe" -->
+    <!--     style=" -->
+    <!--       position: fixed; -->
+    <!--       top: 10px; -->
+    <!--       right: 10px; -->
+    <!--       background-color: #fff; -->
+    <!--       border: none; -->
+    <!--       font-size: 24px; -->
+    <!--       cursor: pointer; -->
+    <!--       z-index: 1001; -->
+    <!--       display: none; -->
+    <!--     " -->
+    <!--   > -->
+    <!--     &times; -->
+    <!--   </button> -->
+    <!---->
+    <!--   <style> -->
+    <!--     #chatbotIconContainer { -->
+    <!--       position: fixed; -->
+    <!--       bottom: 50px; -->
+    <!--       right: 40px; -->
+    <!--       cursor: pointer; -->
+    <!--       z-index: 1000; -->
+    <!--     } -->
+    <!---->
+    <!--     #chatbotIcon { -->
+    <!--       max-width: 200px; -->
+    <!--     } -->
+    <!---->
+    <!--     /* Full-screen style for narrow screens */ -->
+    <!--     @media (max-width: 710px) { -->
+    <!--       #chatbotFrame { -->
+    <!--         width: 100vw; -->
+    <!--         height: 100vh; -->
+    <!--         top: 0; -->
+    <!--         right: 0; -->
+    <!--         bottom: 0; -->
+    <!--         left: 0; -->
+    <!--       } -->
+    <!--     } -->
+    <!--   </style> -->
+    <!---->
+    <!--   <script> -->
+    <!--     // Initially show the iframe and then hide it after a few milliseconds -->
+    <!--     setTimeout(function () { -->
+    <!--       var iframe = document.getElementById("chatbotFrame"); -->
+    <!--       if (window.innerWidth > 710) { -->
+    <!--         iframe.style.right = "-100%"; -->
+    <!--       } -->
+    <!--     }, 1); // Adjust time as needed -->
+    <!---->
+    <!--     document -->
+    <!--       .getElementById("chatbotIcon") -->
+    <!--       .addEventListener("click", function () { -->
+    <!--         var iframe = document.getElementById("chatbotFrame"); -->
+    <!--         var closeButton = document.getElementById("closeIframe"); -->
+    <!--         var isFullScreen = window.innerWidth <= 710; -->
+    <!--         var isIframeVisible = iframe.style.right === "40px" || isFullScreen; -->
+    <!---->
+    <!--         iframe.style.display = "block"; -->
+    <!--         iframe.style.right = isIframeVisible ? "-100%" : "40px"; -->
+    <!--         // iframe.style.width = isFullScreen ? "100vw" : "60%"; -->
+    <!--         // iframe.style.height = isFullScreen ? "100vh" : "60%"; -->
+    <!--         closeButton.style.display = isIframeVisible ? "none" : "block"; -->
+    <!--       }); -->
+    <!---->
+    <!--     document -->
+    <!--       .getElementById("closeIframe") -->
+    <!--       .addEventListener("click", function () { -->
+    <!--         var iframe = document.getElementById("chatbotFrame"); -->
+    <!--         iframe.style.display = "none"; -->
+    <!--         this.style.display = "none"; -->
+    <!--       }); -->
+    <!--   </script> -->
+    <!-- </div> -->
   </body>
 </html>

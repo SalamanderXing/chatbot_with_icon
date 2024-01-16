@@ -1,0 +1,222 @@
+<div id="chatbotIconContainer">
+  <img
+    id="chatbotIcon"
+    src="https://aikosmos-r7blt2y3oa-ew.a.run.app/public/concierge-1.svg"
+    alt="Chatbot"
+    width="92px"
+    height="92px"
+  />
+
+  <iframe
+    id="chatbotFrame"
+    src="https://aikosmos-r7blt2y3oa-ew.a.run.app/"
+    frameborder="0"
+    style="
+      border: none;
+      width: 370px;
+      height: 75%;
+      position: fixed;
+      bottom: 35px;
+      right: 25px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+      z-index: 99;
+    "
+  ></iframe>
+  
+  <div id="animatedMessage" 
+    style="
+      position: fixed;
+      bottom: 120px;
+      right: 110px;
+      border: 1px solid transparent;
+      width: 240px;
+      height: auto;
+      border-radius: 10px 10px 0px 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      background-color: white;
+      padding: 15px 20px 15px 20px;
+      font-size: 14px;
+      z-index: 98;
+      display: none;
+      transition: transform 0.3s ease;
+      letter-spacing: .6px;
+      font-weight: 300;
+      "
+    >
+    
+    <button id="closeAnimatedMessage" 
+      style="
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        left: auto;
+        background-color: transparent;
+        border: none;
+        font-size: 12px;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        border-radius: 50%;
+        display: flex;
+        align-items: center; 
+    		justify-content: center; 
+        background-color: rgba(0, 0, 0, 0.08);
+        padding-bottom: 4px;
+        
+        "
+    >&times;</button>
+    
+    Ciao, sono Nova! =) <br> 
+    Come posso aiutarti oggi? Cliccami, rispondo a tutto! 
+  </div>
+
+  <button
+    id="closeIframe"
+    style="
+      position: fixed;
+      display: flex;
+      top: calc(25% - 50px);
+      right: 26px;
+      background-color: #006d66; /* #004485*/
+      background-image: https://www.svgrepo.com/show/522388/close.svg;
+      color: white;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 100;
+      display: none;
+      height: 32px;
+      width: 32px;
+      border-radius: 50%;
+      border: solid 1px white;
+      padding-top: 2px;
+      padding-bottom: 8px;
+    "
+  >
+    &times;
+  </button>
+
+  <style>
+    #chatbotIconContainer {
+      /* this is the container where the icon is located */
+      position: fixed;
+      bottom: 40px; /* Bottom margin */
+      right: 40px; /* Right margin */
+      cursor: pointer;
+      background-color: white;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+    	border-radius: 50%;
+      height: 80px;
+      width: 80px;
+      display: flex;
+    	justify-content: center;
+    	align-items: bottom; /* vertical alignment */
+      overflow: hidden;
+      z-index: 100;
+      padding-top: 10px;
+    }
+    #chatbotIcon:hover {
+      transform: scale(1.06); /* Scale up the element to 110% when hovered */
+    }
+
+    #chatbotIcon {
+      transition: transform 0.2s ease !important;
+      transition: opacity 0.2s ease;
+    }
+
+    /* Full-screen style for narrow screens */
+    @media (max-width: 568px) {
+      #chatbotFrame {
+        display: absolute;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+  </style>
+
+  <script>
+    const iframe = document.getElementById("chatbotFrame");
+    
+		// to make it not scrollable on mobile
+		function adjustHeight() {
+    	var actualVisibleHeight = window.innerHeight;
+    	document.iframe.style.height = actualVisibleHeight + 'px';
+		}
+		window.onload = adjustHeight;		// Adjust height on page load
+		window.onresize = adjustHeight;	// Adjust height on window resize
+    
+    // Initially show the iframe and then hide it after a few milliseconds
+    setTimeout(function () {
+      if (window.innerWidth > 710) {
+        iframe.style.right = "-100%";
+      }
+    }, 20); // Adjust time as needed
+
+    document
+      .getElementById("chatbotIcon")
+      .addEventListener("click", function () {
+        var closeButton = document.getElementById("closeIframe");
+        var isFullScreen = window.innerWidth <= 710;
+        var isIframeVisible = iframe.style.right === "40px" || isFullScreen;
+        iframe.style.display = "block";
+        iframe.style.right = isIframeVisible ? "-100%" : "40px";
+        closeButton.style.display = isIframeVisible ? "none" : "block";
+      });
+
+    document
+      .getElementById("closeIframe")
+      .addEventListener("click", function () {
+        iframe.style.display = "none";
+        this.style.display = "none";
+      });
+    
+    const stupidButton = document.getElementById("closeAnimatedMessage")
+    const animatedMessage = document.getElementById("animatedMessage")
+    stupidButton.onclick = () => {
+      animatedMessage.style.display = "none"
+    } 
+    
+  
+  // TO PLAY THE NOTIFICATION SOUND
+  const soundUrl = 'https://proxy.notificationsounds.com/notification-sounds/confident-543/download/file-sounds-1083-confident.mp3';
+  const notificationSound = new Audio(soundUrl);
+  let hasPlayed = false;
+  const playSound = () => {
+    if (!hasPlayed) {
+        hasPlayed = true;
+        let startTime = performance.now();
+        const playSoundAfterDelay = () => {
+            const elapsedTime = performance.now() - startTime;
+            if (elapsedTime < 2000) {
+                animationFrameId = requestAnimationFrame(playSoundAfterDelay);
+            } else {
+              const messageDiv = document.getElementById('animatedMessage');
+    		// Start with the div moved to the left outside of the viewport
+    		messageDiv.style.transform = 'translateX(-100%)';
+    		messageDiv.style.display = 'block';
+    		// Wait for the next browser repaint to ensure 'display' has taken effect
+    		requestAnimationFrame(() => {
+      		// Trigger the slide-in animation
+      		messageDiv.style.transform = 'translateX(0)';
+    		});
+                notificationSound.play().catch(error => console.error('Error playing the sound:', error));
+            }
+        };
+        animationFrameId = requestAnimationFrame(playSoundAfterDelay);
+    }
+};
+
+['click', 'mousemove', 'keypress', 'touchstart', 'scroll'].forEach(event => 
+    document.addEventListener(event, 
+    playSound
+    ));
+    
+
+  </script>
+</div>
+

@@ -1,252 +1,261 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Simple HTML Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
+
   <body style="background-color: black">
     <h1>Welcome to My Web Page</h1>
     <p>This is a simple HTML page created as a demonstration.</p>
     <a href="https://www.example.com">Visit Example</a>
-    <div id="chatbotIconContainer">
-      <img
-        id="chatbotIcon"
-        src="https://www.svgrepo.com/show/135835/waiter.svg"
-        alt="Chatbot"
-        width="80px"
-        height="80px"
-      />
+    <!--<script src="./show_chatbot.js"></script>-->
+    <div id="mainContainer">
+      <div id="chatbotIconContainer">
+        <img
+          id="chatbotIcon"
+          src="https://aikosmos-r7blt2y3oa-ew.a.run.app/public/concierge-1.svg"
+          alt="Chatbot"
+          width="92px"
+          height="92px"
+        />
+      </div>
 
       <iframe
         id="chatbotFrame"
-        src="https://aikosmos-rkaflb3bpq-ew.a.run.app/"
+        src="https://aikosmos-r7blt2y3oa-ew.a.run.app/"
         frameborder="0"
-        style="
-          border: none;
-          width: 380px;
-          height: 70%;
-          position: fixed;
-          bottom: 46px;
-          right: 40px;
-          border-radius: 10px;
-          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-        "
       ></iframe>
 
-      <button
-        id="closeIframe"
-        style="
-          position: fixed;
-          top: 10px;
-          right: 10px;
-          margin-right: 10px;
-          margin-top: 10px;
-          background-color: #fff;
-          border: none;
-          font-size: 24px;
-          cursor: pointer;
-          z-index: 1001;
-          display: none;
-        "
-      >
-        &times;
-      </button>
+      <div id="animatedMessage">
+        <button id="closeAnimatedMessage">&times;</button>
+        Ciao, sono Nova! =) <br />
+        Come posso aiutarti oggi? Cliccami, rispondo a tutto!
+      </div>
+
+      <button id="closeIframe">&times;</button>
 
       <style>
+        #animatedMessage {
+          position: fixed;
+          bottom: 120px;
+          right: 110px;
+          border: 1px solid transparent;
+          width: 240px;
+          height: auto;
+          border-radius: 10px 10px 0px 10px;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+          background-color: white;
+          padding: 15px 20px 15px 20px;
+          font-size: 14px;
+          z-index: 98;
+          display: none;
+          transition: transform 0.3s ease;
+          letter-spacing: 0.6px;
+          font-weight: 300;
+        }
+        #closeAnimatedMessage {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          left: auto;
+          background-color: transparent;
+          border: none;
+          font-size: 12px;
+          width: 18px;
+          height: 18px;
+          cursor: pointer;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: rgba(0, 0, 0, 0.08);
+          padding-bottom: 4px;
+        }
+        #closeIframe {
+          position: fixed;
+          background-color: #006d66; /* #004485*/
+          display: none;
+          color: white;
+          border: none;
+          font-size: 20px;
+          cursor: pointer;
+          z-index: 100;
+          height: 32px;
+          width: 32px;
+          border-radius: 50%;
+          border: solid 1px white;
+          padding-top: 2px;
+          padding-bottom: 8px;
+        }
         #chatbotIconContainer {
           /* this is the container where the icon is located */
           position: fixed;
-          bottom: 50px; /* Bottom margin */
+          bottom: 40px; /* Bottom margin */
           right: 40px; /* Right margin */
           cursor: pointer;
-
-          z-index: 9;
+          background-color: white;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+          border-radius: 50%;
+          height: 80px;
+          width: 80px;
+          display: flex;
+          justify-content: center;
+          align-items: bottom; /* vertical alignment */
+          overflow: hidden;
+          z-index: 98;
+          padding-top: 10px;
         }
         #chatbotIcon:hover {
-          transform: scale(1.1); /* Scale up the element to 110% when hovered */
+          transform: scale(
+            1.06
+          ); /* Scale up the element to 110% when hovered */
         }
 
         #chatbotIcon {
-          transition: transform 0.3s ease;
-          transition: opacity 0.3s ease;
+          transition: transform 0.2s ease !important;
+          transition: opacity 0.2s ease;
+        }
+
+        iframe {
+          display: none;
+          border: none;
+          width: 370px;
+          height: 75%;
+          position: fixed;
+          bottom: 35px;
+          right: 25px;
+          border-radius: 10px;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+          z-index: 99;
         }
 
         /* Full-screen style for narrow screens */
-        @media (max-width: 710px) {
-          #chatbotFrame {
+        @media (max-width: 568px) {
+          iframe {
+            display: absolute;
             width: 100vw;
             height: 100vh;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
+            border-radius: 0px;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
           }
         }
       </style>
 
       <script>
-        // Initially show the iframe and then hide it after a few milliseconds
-
-        // const iframe = document.getElementById("chatbotFrame");
-        // setTimeout(function () {
-        //   if (window.innerWidth > 710) {
-        //     iframe.style.right = "-100%";
-        //   }
-        // }, 20); // Adjust time as needed
-        //
-        // document
-        //   .getElementById("chatbotIcon")
-        //   .addEventListener("click", function () {
-        //     var closeButton = document.getElementById("closeIframe");
-        //     var isFullScreen = window.innerWidth <= 710;
-        //     var isIframeVisible = iframe.style.right === "40px" || isFullScreen;
-        //     iframe.style.display = "block";
-        //     iframe.style.right = isIframeVisible ? "-100%" : "40px";
-        //     closeButton.style.display = isIframeVisible ? "none" : "block";
-        //   });
-        //
-        // document
-        //   .getElementById("closeIframe")
-        //   .addEventListener("click", function () {
-        //     iframe.style.display = "none";
-        //     this.style.display = "none";
-        //   });
         const iframe = document.getElementById("chatbotFrame");
         const closeButton = document.getElementById("closeIframe");
+        const animatedMessage = document.getElementById("animatedMessage");
+        const stupidButton = document.getElementById("closeAnimatedMessage");
+        const mobileThreshold = 710;
+        const soundUrl =
+          "https://proxy.notificationsounds.com/notification-sounds/confident-543/download/file-sounds-1083-confident.mp3";
+        const notificationSound = new Audio(soundUrl);
+        const notificationDelay = 2000;
+        let hasPlayedVar = false; // This is a variable that will be used to check if the sound has played
+        function centerAtTopRight(sourceElement, targetElement) {
+          const sourceRect = sourceElement.getBoundingClientRect();
+          const targetStyle = window.getComputedStyle(targetElement);
 
-        setTimeout(function () {
-          if (window.innerWidth > 710) {
-            iframe.style.right = "-100%";
+          const targetMarginLeft = parseInt(targetStyle.marginLeft, 10);
+          const targetMarginTop = parseInt(targetStyle.marginTop, 10);
+          const targetBorderLeft = parseInt(targetStyle.borderLeftWidth, 10);
+          const targetBorderTop = parseInt(targetStyle.borderTopWidth, 10);
+
+          const topRightX = sourceRect.right + window.scrollX;
+          const topRightY = sourceRect.top + window.scrollY;
+
+          const offsetX = targetBorderLeft + targetMarginLeft;
+          const offsetY = targetBorderTop + targetMarginTop;
+
+          targetElement.style.position = "fixed";
+          targetElement.style.left =
+            topRightX - offsetX - targetElement.offsetWidth / 2 + "px";
+          targetElement.style.top =
+            topRightY - offsetY - targetElement.offsetHeight / 2 + "px";
+        }
+
+        function adjustHeight() {
+          if (window.innerWidth <= mobileThreshold) {
+            const actualVisibleHeight = window.innerHeight;
+            iframe.style.height = actualVisibleHeight + "px";
           }
-        }, 20);
+        }
+        const main = () => {
+          window.onload = adjustHeight; // Adjust height on page load
+          window.onresize = adjustHeight; // Adjust height on window resize
+          document
+            .getElementById("chatbotIcon")
+            .addEventListener("click", function () {
+              const isFullScreen = window.innerWidth <= mobileThreshold;
+              const isIframeVisible = iframe.style.display === "block";
+              iframe.style.display = isIframeVisible ? "none" : "block";
+              closeButton.style.display = isIframeVisible ? "none" : "block";
+              centerAtTopRight(iframe, closeButton);
+            });
 
-        document
-          .getElementById("chatbotIcon")
-          .addEventListener("click", function () {
-            const isFullScreen = window.innerWidth <= 710;
-            const isIframeVisible =
-              iframe.style.right === "40px" || isFullScreen;
-            iframe.style.display = "block";
-            iframe.style.right = isIframeVisible ? "-100%" : "40px";
-            if (!isIframeVisible) {
-              const iframeRect = iframe.getBoundingClientRect();
-              closeButton.style.top = `${iframeRect.top}px`;
-              closeButton.style.right = `${
-                document.documentElement.clientWidth - iframeRect.right
-              }px`;
-              closeButton.style.display = "block";
-            } else {
-              closeButton.style.display = "none";
-            }
-          });
-
-        document
-          .getElementById("closeIframe")
-          .addEventListener("click", function () {
+          closeButton.addEventListener("click", function () {
             iframe.style.display = "none";
-            this.style.display = "none";
+            closeButton.style.display = "none";
           });
+          stupidButton.onclick = () => {
+            animatedMessage.style.display = "none";
+          };
+
+          ["click", "mousemove", "keypress", "touchstart", "scroll"].forEach(
+            (event) => document.addEventListener(event, playSound)
+          );
+        };
+        const animateMessage = () => {
+          if (!hasPlayedVar) {
+            hasPlayedVar = true;
+            console.log("running");
+            // Start with the div moved to the left outside of the viewport
+            animatedMessage.style.transform = "translateX(-100%)";
+            animatedMessage.style.display = "block";
+
+            // Wait for the next browser repaint to ensure 'display' has taken effect
+            requestAnimationFrame(() => {
+              // Trigger the slide-in animation
+              animatedMessage.style.transform = "translateX(0)";
+            });
+          }
+        };
+        const playSound = () => {
+          // check storage in the browser to not play it twice on the same domain
+          const { hasPlayed } =
+            JSON.parse(localStorage.getItem("hasPlayed")) || {};
+          console.log(localStorage);
+          if (!hasPlayed) {
+            let startTime = performance.now();
+            const playSoundAfterDelay = () => {
+              const elapsedTime = performance.now() - startTime;
+              if (elapsedTime < notificationDelay) {
+                animationFrameId = requestAnimationFrame(playSoundAfterDelay);
+              } else {
+                notificationSound
+                  .play()
+                  .then(() => {
+                    animateMessage();
+                    // remember that you played
+                    localStorage.setItem(
+                      "hasPlayed",
+                      JSON.stringify({ hasPlayed: true })
+                    );
+                  })
+                  .catch((error) =>
+                    console.error("Error playing the sound:", error)
+                  );
+              }
+            };
+            animationFrameId = requestAnimationFrame(playSoundAfterDelay);
+          }
+        };
+        main();
       </script>
     </div>
-    <!-- <div id="chatbotIconContainer"> -->
-    <!--   <img -->
-    <!--     id="chatbotIcon" -->
-    <!--     src="https://www.svgrepo.com/show/135835/waiter.svg" -->
-    <!--     alt="Chatbot" -->
-    <!--     width="50px" -->
-    <!--   /> -->
-    <!---->
-    <!--   <iframe -->
-    <!--     id="chatbotFrame" -->
-    <!--     src="https://aikosmos-rkaflb3bpq-ew.a.run.app/" -->
-    <!--     frameborder="0" -->
-    <!--     style=" -->
-    <!--       border: none; -->
-    <!--       width: 380px; -->
-    <!--       height: 80%; -->
-    <!--       position: fixed; -->
-    <!--       bottom: 100px; -->
-    <!--       right: 40px; -->
-    <!--       border-radius: 30px; -->
-    <!--       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); -->
-    <!--     " -->
-    <!--   ></iframe> -->
-    <!---->
-    <!--   <button -->
-    <!--     id="closeIframe" -->
-    <!--     style=" -->
-    <!--       position: fixed; -->
-    <!--       top: 10px; -->
-    <!--       right: 10px; -->
-    <!--       background-color: #fff; -->
-    <!--       border: none; -->
-    <!--       font-size: 24px; -->
-    <!--       cursor: pointer; -->
-    <!--       z-index: 1001; -->
-    <!--       display: none; -->
-    <!--     " -->
-    <!--   > -->
-    <!--     &times; -->
-    <!--   </button> -->
-    <!---->
-    <!--   <style> -->
-    <!--     #chatbotIconContainer { -->
-    <!--       position: fixed; -->
-    <!--       bottom: 50px; -->
-    <!--       right: 40px; -->
-    <!--       cursor: pointer; -->
-    <!--       z-index: 1000; -->
-    <!--     } -->
-    <!---->
-    <!--     #chatbotIcon { -->
-    <!--       max-width: 200px; -->
-    <!--     } -->
-    <!---->
-    <!--     /* Full-screen style for narrow screens */ -->
-    <!--     @media (max-width: 710px) { -->
-    <!--       #chatbotFrame { -->
-    <!--         width: 100vw; -->
-    <!--         height: 100vh; -->
-    <!--         top: 0; -->
-    <!--         right: 0; -->
-    <!--         bottom: 0; -->
-    <!--         left: 0; -->
-    <!--       } -->
-    <!--     } -->
-    <!--   </style> -->
-    <!---->
-    <!--   <script> -->
-    <!--     // Initially show the iframe and then hide it after a few milliseconds -->
-    <!--     setTimeout(function () { -->
-    <!--       var iframe = document.getElementById("chatbotFrame"); -->
-    <!--       if (window.innerWidth > 710) { -->
-    <!--         iframe.style.right = "-100%"; -->
-    <!--       } -->
-    <!--     }, 1); // Adjust time as needed -->
-    <!---->
-    <!--     document -->
-    <!--       .getElementById("chatbotIcon") -->
-    <!--       .addEventListener("click", function () { -->
-    <!--         var iframe = document.getElementById("chatbotFrame"); -->
-    <!--         var closeButton = document.getElementById("closeIframe"); -->
-    <!--         var isFullScreen = window.innerWidth <= 710; -->
-    <!--         var isIframeVisible = iframe.style.right === "40px" || isFullScreen; -->
-    <!---->
-    <!--         iframe.style.display = "block"; -->
-    <!--         iframe.style.right = isIframeVisible ? "-100%" : "40px"; -->
-    <!--         // iframe.style.width = isFullScreen ? "100vw" : "60%"; -->
-    <!--         // iframe.style.height = isFullScreen ? "100vh" : "60%"; -->
-    <!--         closeButton.style.display = isIframeVisible ? "none" : "block"; -->
-    <!--       }); -->
-    <!---->
-    <!--     document -->
-    <!--       .getElementById("closeIframe") -->
-    <!--       .addEventListener("click", function () { -->
-    <!--         var iframe = document.getElementById("chatbotFrame"); -->
-    <!--         iframe.style.display = "none"; -->
-    <!--         this.style.display = "none"; -->
-    <!--       }); -->
-    <!--   </script> -->
-    <!-- </div> -->
   </body>
 </html>

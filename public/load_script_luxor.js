@@ -1,4 +1,5 @@
 (async () => {
+    alert('hey')
     const response = await fetch("https://raw.githubusercontent.com/SalamanderXing/chatbot_with_icon/main/public/luxor.html");
     const htmlContent = await response.text();
     const scriptTag = document.querySelector("#chatbot_script");

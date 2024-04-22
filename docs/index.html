@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>Simple HTML Page</title>
@@ -330,7 +330,7 @@
               centerAtTopRightFixed(iframe, closeButton);
               localStorage.setItem(
                 "hasPlayed",
-                JSON.stringify({ hasPlayed: true })
+                JSON.stringify({ hasPlayed: true }),
               );
               hasPlayedVar = true;
             });
@@ -344,7 +344,7 @@
           };
 
           ["click", "mousemove", "keypress", "touchstart", "scroll"].forEach(
-            (event) => document.addEventListener(event, playSound)
+            (event) => document.addEventListener(event, playSound),
           );
         };
         const animateMessage = () => {
@@ -379,7 +379,7 @@
                   // remember that you played
                   localStorage.setItem(
                     "hasPlayed",
-                    JSON.stringify({ hasPlayed: true })
+                    JSON.stringify({ hasPlayed: true }),
                   );
                 });
               }

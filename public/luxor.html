@@ -1,25 +1,17 @@
-<div id="mainContainer">
+<div id="chatbot_container">
   <div id="chatbotIconContainer">
-    <img
-      id="chatbotIcon"
+    <img id="chatbotIcon"
       src="https://uploads-ssl.webflow.com/658e9083d9b501bba5a96ea2/661938eafeaf4181b8ed0dae_luxor-pfp.jpg"
-      alt="Chatbot"
-      width="92px"
-      height="92px"
-    />
+      alt="Chatbot" width="92px" height="92px" />
   </div>
 
-  <iframe
-    id="chatbotFrame"
-    src="https://hotel-luxor-r7blt2y3oa-ew.a.run.app"
-    frameborder="0"
-  ></iframe>
+  <iframe id="chatbotFrame" src="https://hotel-luxor-r7blt2y3oa-ew.a.run.app" frameborder="0"></iframe>
 
   <div id="animatedMessage">
     <button id="closeAnimatedMessage"></button>
     Sono qui per rispondere a tutte <br />
-		le tue domande 🙂  dimmi tutto! <br />
-		Rispondo istantaneamente. 
+    le tue domande 🙂 dimmi tutto! <br />
+    Rispondo istantaneamente.
   </div>
 
   <button id="closeIframe"></button>
@@ -43,6 +35,7 @@
       letter-spacing: 0.6px;
       font-weight: 300;
     }
+
     #closeAnimatedMessage {
       position: absolute;
       top: 10px;
@@ -59,15 +52,17 @@
       background-color: rgba(0, 0, 0, 0.08);
       transition: background-color 0.3s ease;
     }
+
     #closeAnimatedMessage:hover {
       background-color: rgba(0, 0, 0, 0.12);
     }
+
     #closeIframe {
       position: fixed;
-      background-color: rgba(255,255,255,0.2);
+      background-color: rgba(255, 255, 255, 0.2);
       background-image: url("https://uploads-ssl.webflow.com/658e9083d9b501bba5a96ea2/65b8cbd97fcd78fa73e5a714_x.svg");
       background-size: 88%;
-  background-position: center;
+      background-position: center;
       display: none;
       border: none;
       cursor: pointer;
@@ -77,14 +72,18 @@
       border-radius: 50%;
       transition: background-color 0.3s ease;
     }
+
     #closeIframe:hover {
-      background-color: rgba(255,255,255,0.28);
+      background-color: rgba(255, 255, 255, 0.28);
     }
+
     #chatbotIconContainer {
       /* this is the container where the icon is located */
       position: fixed;
-      bottom: 68px; /* Bottom margin */
-      right: 40px; /* Right margin */
+      bottom: 68px;
+      /* Bottom margin */
+      right: 40px;
+      /* Right margin */
       cursor: pointer;
       background-color: white;
       box-shadow: rgba(256, 256, 256, 0.4) 0px 0px 10px;
@@ -93,14 +92,15 @@
       width: 80px;
       display: flex;
       justify-content: center;
-      align-items: center; /* vertical alignment */
+      align-items: center;
+      /* vertical alignment */
       overflow: hidden;
       z-index: 299;
     }
+
     #chatbotIcon:hover {
-      transform: scale(
-        1.06
-      ); /* Scale up the element to 110% when hovered */
+      transform: scale(1.06);
+      /* Scale up the element to 110% when hovered */
     }
 
     #chatbotIcon {
@@ -125,7 +125,7 @@
 
     /* Full-screen style for narrow screens */
     @media (max-width: 568px) {
-    
+
       #chatbotFrame {
         width: 100vw;
         height: 100% !important;
@@ -138,35 +138,37 @@
         z-index: 1000;
         max-width: 100vw !important;
       }
-      
+
       #closeIframe {
-        z-index: 1002; 
+        z-index: 1002;
         top: 20.5px !important;
       }
 
       #chatbotIconContainer {
-      /* this is the container where the icon is located */
-      bottom: 80px; /* Bottom margin */
-      right: 15px; /* Right margin */
-      height: 65px;
-      width: 65px;
-    }
+        /* this is the container where the icon is located */
+        bottom: 80px;
+        /* Bottom margin */
+        right: 15px;
+        /* Right margin */
+        height: 65px;
+        width: 65px;
+      }
 
       #chatbotIcon {
-          width: 80px;
-          height: 80px;
+        width: 80px;
+        height: 80px;
       }
-      
+
       #animatedMessage {
-      bottom: 85px;
-      right: 75px;
-      display: none !important;
+        bottom: 85px;
+        right: 75px;
+        display: none !important;
       }
-      
+
       #closeAnimatedMessage {
-       width: 18px;
-      height: 18px;
-      font-size: 0px;
+        width: 18px;
+        height: 18px;
+        font-size: 0px;
       }
     }
   </style>
@@ -224,13 +226,13 @@
           closeButton.style.display = isIframeVisible ? "none" : "block";
           centerAtTopRightFixed(iframe, closeButton);
         });
-      
-      chatbotIconContainer.addEventListener('mouseover', function() {
-      animatedMessage.style.display = 'block';
+
+      chatbotIconContainer.addEventListener('mouseover', function () {
+        animatedMessage.style.display = 'block';
       });
 
-      chatbotIconContainer.addEventListener('mouseout', function() {
-      animatedMessage.style.display = 'none';
+      chatbotIconContainer.addEventListener('mouseout', function () {
+        animatedMessage.style.display = 'none';
       });
 
       closeButton.addEventListener("click", function () {

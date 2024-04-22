@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>Simple HTML Page</title>
@@ -146,249 +146,24 @@
       rerum et voluptates obcaecati aut nobis natus qui neque quod ut eaque
       quae. Ea consequatur dolor ut earum Quis est accusantium esse.
     </div>
-    <div id="mainContainer">
-      <div id="chatbotIconContainer">
-        <img
-          id="chatbotIcon"
-          src="https://aikosmos-r7blt2y3oa-ew.a.run.app/public/concierge-1.svg"
-          alt="Chatbot"
-          width="92px"
-          height="92px"
-        />
-      </div>
-
-      <iframe
-        id="chatbotFrame"
-        src="https://aikosmos-r7blt2y3oa-ew.a.run.app/"
-        frameborder="0"
-      ></iframe>
-
-      <div id="animatedMessage">
-        <button id="closeAnimatedMessage">&times;</button>
-        Ciao, sono Nova! =) <br />
-        Come posso aiutarti oggi? Cliccami, rispondo a tutto!
-      </div>
-
-      <button id="closeIframe">&times;</button>
-
-      <style>
-        #animatedMessage {
-          position: fixed;
-          bottom: 120px;
-          right: 110px;
-          border: 1px solid transparent;
-          width: 240px;
-          height: auto;
-          border-radius: 10px 10px 0px 10px;
-          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-          background-color: white;
-          padding: 15px 20px 15px 20px;
-          font-size: 14px;
-          z-index: 98;
-          display: none;
-          transition: transform 0.3s ease;
-          letter-spacing: 0.6px;
-          font-weight: 300;
-        }
-        #closeAnimatedMessage {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          left: auto;
-          background-color: transparent;
-          border: none;
-          font-size: 12px;
-          width: 18px;
-          height: 18px;
-          cursor: pointer;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: rgba(0, 0, 0, 0.08);
-          padding-bottom: 4px;
-        }
-        #closeIframe {
-          position: fixed;
-          background-color: #006d66; /* #004485*/
-          display: none;
-          color: white;
-          border: none;
-          font-size: 20px;
-          cursor: pointer;
-          z-index: 100;
-          height: 32px;
-          width: 32px;
-          border-radius: 50%;
-          border: solid 1px white;
-          padding-top: 2px;
-          padding-bottom: 8px;
-        }
-        #chatbotIconContainer {
-          /* this is the container where the icon is located */
-          position: fixed;
-          bottom: 40px; /* Bottom margin */
-          right: 40px; /* Right margin */
-          cursor: pointer;
-          background-color: white;
-          box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
-          border-radius: 50%;
-          height: 80px;
-          width: 80px;
-          display: flex;
-          justify-content: center;
-          align-items: bottom; /* vertical alignment */
-          overflow: hidden;
-          z-index: 98;
-          padding-top: 10px;
-        }
-        #chatbotIcon:hover {
-          transform: scale(
-            1.06
-          ); /* Scale up the element to 110% when hovered */
-        }
-
-        #chatbotIcon {
-          transition: transform 0.2s ease !important;
-          transition: opacity 0.2s ease;
-        }
-
-        iframe {
-          display: none;
-          border: none;
-          width: 370px;
-          height: 75%;
-          position: fixed;
-          bottom: 35px;
-          right: 25px;
-          border-radius: 10px;
-          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-          z-index: 99;
-        }
-
-        /* Full-screen style for narrow screens */
-        @media (max-width: 568px) {
-          iframe {
-            display: absolute;
-            width: 100vw;
-            height: 100vh;
-            border-radius: 0px;
-            top: 0px;
-            right: 0px;
-            bottom: 0px;
-            left: 0px;
+    <script id="script">
+      (async () => {
+        const response = await fetch("chatbot.html"); // URL of the HTML file
+        const htmlContent = await response.text();
+        const scriptTag = document.querySelector("#script");
+        scriptTag.insertAdjacentHTML("afterend", htmlContent);
+        Array.from(
+          scriptTag.nextElementSibling.querySelectorAll("script"),
+        ).forEach((oldScript) => {
+          const newScript = document.createElement("script");
+          if (oldScript.src) {
+            newScript.src = oldScript.src;
+          } else {
+            newScript.textContent = oldScript.textContent;
           }
-        }
-      </style>
-
-      <script>
-        const iframe = document.getElementById("chatbotFrame");
-        const closeButton = document.getElementById("closeIframe");
-        const animatedMessage = document.getElementById("animatedMessage");
-        const stupidButton = document.getElementById("closeAnimatedMessage");
-        const mobileThreshold = 710;
-        const soundUrl =
-          "https://proxy.notificationsounds.com/notification-sounds/confident-543/download/file-sounds-1083-confident.mp3";
-        const notificationSound = new Audio(soundUrl);
-        const notificationDelay = 2000;
-        let hasPlayedVar = false; // This is a variable that will be used to check if the sound has played
-        function centerAtTopRightFixed(sourceElement, targetElement) {
-          const sourceRect = sourceElement.getBoundingClientRect();
-
-          // Since fixed positioning is relative to the viewport, no need to add scroll values
-          const topRightX = sourceRect.right;
-          const topRightY = sourceRect.top;
-          // Adjustments for the element's dimensions to center it at the top right corner
-          const centerX = topRightX - 2.5 * 16 - targetElement.offsetWidth / 2;
-          const centerY = topRightY + 2.5 * 15 - targetElement.offsetHeight / 2;
-
-          // Set the fixed position for the target element
-          targetElement.style.position = "fixed";
-          targetElement.style.left = `${centerX}px`;
-          targetElement.style.top = `${centerY}px`;
-        }
-
-        function adjustHeight() {
-          if (window.innerWidth <= mobileThreshold) {
-            const actualVisibleHeight = window.innerHeight;
-            iframe.style.height = actualVisibleHeight + "px";
-          }
-          if (iframe.style.display === "block") {
-            centerAtTopRightFixed(iframe, closeButton);
-          }
-        }
-        const main = () => {
-          window.onload = adjustHeight; // Adjust height on page load
-          window.onresize = adjustHeight; // Adjust height on window resize
-          document
-            .getElementById("chatbotIcon")
-            .addEventListener("click", function () {
-              const isFullScreen = window.innerWidth <= mobileThreshold;
-              const isIframeVisible = iframe.style.display === "block";
-              iframe.style.display = isIframeVisible ? "none" : "block";
-              closeButton.style.display = isIframeVisible ? "none" : "block";
-              centerAtTopRightFixed(iframe, closeButton);
-              localStorage.setItem(
-                "hasPlayed",
-                JSON.stringify({ hasPlayed: true })
-              );
-              hasPlayedVar = true;
-            });
-
-          closeButton.addEventListener("click", function () {
-            iframe.style.display = "none";
-            closeButton.style.display = "none";
-          });
-          stupidButton.onclick = () => {
-            animatedMessage.style.display = "none";
-          };
-
-          ["click", "mousemove", "keypress", "touchstart", "scroll"].forEach(
-            (event) => document.addEventListener(event, playSound)
-          );
-        };
-        const animateMessage = () => {
-          if (!hasPlayedVar) {
-            hasPlayedVar = true;
-            console.log("running");
-            // Start with the div moved to the left outside of the viewport
-            animatedMessage.style.transform = "translateX(-100%)";
-            animatedMessage.style.display = "block";
-
-            // Wait for the next browser repaint to ensure 'display' has taken effect
-            requestAnimationFrame(() => {
-              // Trigger the slide-in animation
-              animatedMessage.style.transform = "translateX(0)";
-            });
-          }
-        };
-        const playSound = () => {
-          // check storage in the browser to not play it twice on the same domain
-          const { hasPlayed } =
-            JSON.parse(localStorage.getItem("hasPlayed")) || {};
-          console.log(localStorage);
-          if (!hasPlayed || !hasPlayedVar) {
-            let startTime = performance.now();
-            const playSoundAfterDelay = () => {
-              const elapsedTime = performance.now() - startTime;
-              if (elapsedTime < notificationDelay) {
-                animationFrameId = requestAnimationFrame(playSoundAfterDelay);
-              } else {
-                notificationSound.play().then(() => {
-                  animateMessage();
-                  // remember that you played
-                  localStorage.setItem(
-                    "hasPlayed",
-                    JSON.stringify({ hasPlayed: true })
-                  );
-                });
-              }
-            };
-            animationFrameId = requestAnimationFrame(playSoundAfterDelay);
-          }
-        };
-        main();
-      </script>
-    </div>
+          oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+      })();
+    </script>
   </body>
 </html>
